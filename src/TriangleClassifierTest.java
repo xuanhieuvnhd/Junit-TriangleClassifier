@@ -1,101 +1,47 @@
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TriangleClassifierTest {
     @Test
-    public void testLaTamGiac() {
-        assertTrue(TriangleClassifier.isValidTriangle(60, 60, 60));
-        assertFalse(TriangleClassifier.isValidTriangle(60, 60, 90));
-        assertFalse(TriangleClassifier.isValidTriangle(0, 90, 90));
-        assertFalse(TriangleClassifier.isValidTriangle(90, 0, 90));
-        assertFalse(TriangleClassifier.isValidTriangle(0, 90, 90));
+    @DisplayName("equilateral triangle")
+    void equilateralTriangle(){
+        int a = 2;
+        int b = 2;
+        int c=2;
+        String expected ="equilateral";
+        String result = TriangleClassifier.getTypeTriangle(a,b,c);
+        assertEquals(expected, result);
     }
     @Test
-    public void testTheoGoc() {
-        assertEquals("acute", TriangleClassifier.classifyByAngle(60,60,60));
-        assertEquals("right", TriangleClassifier.classifyByAngle(90,60,30));
-        assertEquals("right", TriangleClassifier.classifyByAngle(30,90,60));
-        assertEquals("right", TriangleClassifier.classifyByAngle(60,30,90));
-        assertEquals("obtuse", TriangleClassifier.classifyByAngle(100,60,20));
-        assertEquals("obtuse", TriangleClassifier.classifyByAngle(60,20,100));
-        assertEquals("obtuse", TriangleClassifier.classifyByAngle(20,100,60));
+    @DisplayName("isosceles triangle")
+    void isoscelesTriangle(){
+        int a = 2;
+        int b = 2;
+        int c=3;
+        String expected ="isosceles";
+        String result = TriangleClassifier.getTypeTriangle(a,b,c);
+        assertEquals(expected, result);
     }
     @Test
-    public void testTheoCanh() {
-        assertEquals("equilateral", TriangleClassifier.classifyBySide(60,60,60));
-        assertEquals("isosceles", TriangleClassifier.classifyBySide(30,30,120));
-        assertEquals("isosceles", TriangleClassifier.classifyBySide(30,120,30));
-        assertEquals("isosceles", TriangleClassifier.classifyBySide(120,30,30));
-        assertEquals("scalene", TriangleClassifier.classifyBySide(50,60,70));
-        assertEquals("scalene", TriangleClassifier.classifyBySide(60,70,50));
-        assertEquals("scalene", TriangleClassifier.classifyBySide(70,50,60));
+    @DisplayName("is triangle")
+    void isTriangle(){
+        int a = 3;
+        int b = 4;
+        int c = 5;
+        String expected ="triangle";
+        String result = TriangleClassifier.getTypeTriangle(a,b,c);
+        assertEquals(expected, result);
     }
-
     @Test
-    public void testCanhPhai() {
-        assertEquals("right scalene", TriangleClassifier.getClassification(30, 60, 90));
-        assertEquals("right scalene", TriangleClassifier.getClassification(30, 90, 60));
-        assertEquals("right scalene", TriangleClassifier.getClassification(60, 30, 90));
-        assertEquals("right scalene", TriangleClassifier.getClassification(60, 90, 30));
-        assertEquals("right scalene", TriangleClassifier.getClassification(90, 30, 60));
-        assertEquals("right scalene", TriangleClassifier.getClassification(90, 60, 30));
-    }
-
-    @Test
-    public void testRightIsosceles() {
-        assertEquals("right isosceles", TriangleClassifier.getClassification(45, 45, 90));
-        assertEquals("right isosceles", TriangleClassifier.getClassification(45, 90, 45));
-        assertEquals("right isosceles", TriangleClassifier.getClassification(90, 45, 45));
-    }
-
-    @Test
-    public void testObtuseIsosceles() {
-        assertEquals("obtuse isosceles", TriangleClassifier.getClassification(100, 40, 40));
-        assertEquals("obtuse isosceles", TriangleClassifier.getClassification(40, 100, 40));
-        assertEquals("obtuse isosceles", TriangleClassifier.getClassification(40, 40, 100));
-        assertEquals("obtuse isosceles", TriangleClassifier.getClassification(1, 1, 178));
-    }
-
-    @Test
-    public void testObtuseScalene() {
-        assertEquals("obtuse scalene", TriangleClassifier.getClassification(100, 60, 20));
-        assertEquals("obtuse scalene", TriangleClassifier.getClassification(100, 20, 60));
-        assertEquals("obtuse scalene", TriangleClassifier.getClassification(60, 20, 100));
-        assertEquals("obtuse scalene", TriangleClassifier.getClassification(60, 100, 20));
-        assertEquals("obtuse scalene", TriangleClassifier.getClassification(20, 100, 60));
-        assertEquals("obtuse scalene", TriangleClassifier.getClassification(20, 60, 100));
-    }
-
-    @Test
-    public void testEquilateral() {
-        assertEquals("equilateral", TriangleClassifier.getClassification(60, 60, 60));
-    }
-
-    @Test
-    public void testAcuteIsosceles() {
-        assertEquals("acute isosceles", TriangleClassifier.getClassification(80, 50, 50));
-        assertEquals("acute isosceles", TriangleClassifier.getClassification(50, 50, 80));
-        assertEquals("acute isosceles", TriangleClassifier.getClassification(50, 80, 50));
-    }
-
-    @Test
-    public void testAcuteScalene() {
-        assertEquals("acute scalene", TriangleClassifier.getClassification(50, 60, 70));
-        assertEquals("acute scalene", TriangleClassifier.getClassification(50, 70, 60));
-        assertEquals("acute scalene", TriangleClassifier.getClassification(60, 70, 50));
-        assertEquals("acute scalene", TriangleClassifier.getClassification(60, 50, 70));
-        assertEquals("acute scalene", TriangleClassifier.getClassification(70, 50, 60));
-        assertEquals("acute scalene", TriangleClassifier.getClassification(70, 60, 50));
-    }
-
-    @Test
-    public void testInvalid() {
-        assertEquals("INVALID", TriangleClassifier.getClassification(30, 90, 90));
-        assertEquals("INVALID", TriangleClassifier.getClassification(90, 30, 90));
-        assertEquals("INVALID", TriangleClassifier.getClassification(90, 90, 30));
-        assertEquals("INVALID", TriangleClassifier.getClassification(120, 60, 0));
-        assertEquals("INVALID", TriangleClassifier.getClassification(60, 120, 0));
-        assertEquals("INVALID", TriangleClassifier.getClassification(0, 60, 10));
+    @DisplayName("is Not triangle")
+    void isNotTriangle(){
+        int a = 8;
+        int b = 2;
+        int c = 3;
+        String expected ="Nottriangle";
+        String result = TriangleClassifier.getTypeTriangle(a,b,c);
+        assertEquals(expected, result);
     }
 }

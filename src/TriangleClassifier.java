@@ -1,58 +1,29 @@
 public class TriangleClassifier {
-    public static boolean isValidTriangle(int angleA, int angleB, int angleC) {
-        boolean isValid = true;
-
-        if ((angleA + angleB + angleC) != 180) {
-            isValid = false;
-        } else if ((angleA + angleB + angleC) == 180) {
-            if ((angleA + angleB >= 180) || (angleB + angleC >= 180) || (angleA + angleC >= 180)) {
-                isValid = false;
-            } else {
-                isValid = true;
-            }
+    public static String getTypeTriangle(int a, int b, int c) {
+        String text ="";
+        if (isEquilateral(a, b, c)) {
+            text= "equilateral";
+        }else if(isIsosceles(a, b, c)) {
+            text = "isosceles";
+        }else if(isTriangle(a, b, c)){
+            text= "triangle";
+        }else {
+            text="Nottriangle";
         }
-        return isValid;
+
+        return text;
     }
 
-    public static String classifyByAngle(int angleA, int angleB, int angleC) {
-        String classificationByAngle = "";
-        if (angleA > 90 || angleB > 90 || angleC > 90) {
-            classificationByAngle = "obtuse";
-        } else if (angleA == 90 || angleB == 90 || angleC == 90) {
-            classificationByAngle = "right";
-        } else {
-            classificationByAngle = "acute";
-        }
-        return classificationByAngle;
+    private static boolean isTriangle(int a, int b, int c) {
+        return a + b > c && a + c > b && b + c > a;
     }
 
-    public static String classifyBySide(int sideA, int sideB, int sideC) {
-        String classificationBySide = "";
-        if (sideA == 60 && sideB == 60 && sideC == 60) {
-            classificationBySide = "equilateral";
-        } else if (sideA == sideB || sideA == sideC || sideB == sideC) {
-            classificationBySide = "isosceles";
-        } else {
-            classificationBySide = "scalene";
-        }
-        return classificationBySide;
+    private static boolean isIsosceles(int a, int b, int c) {
+        return a + b > c && a + c > b && b + c > a && (a == b) || (b == c) || (c == a);
     }
 
-    public static String getClassification(int angle1, int angle2, int angle3) {
-        String finalClassification;
 
-        if (!TriangleClassifier.isValidTriangle(angle1, angle2, angle3)) {
-            finalClassification = "INVALID";
-        } else {
-            if ((TriangleClassifier.classifyBySide(angle1, angle2, angle3)).equals("equilateral")) {
-                finalClassification = "equilateral";
-            } else {
-                finalClassification = TriangleClassifier.classifyByAngle(angle1, angle2, angle3)
-                        + " " +
-                        TriangleClassifier.classifyBySide(angle1, angle2, angle3);
-            }
-        }
-        return finalClassification;
-
+    private static boolean isEquilateral(int a, int b, int c ) {
+        return a + b > c && a + c > b && b + c > a && a == b && b == c;
     }
 }
